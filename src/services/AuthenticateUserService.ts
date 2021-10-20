@@ -30,7 +30,7 @@ class AuthenticateUserService{
         });
         
         const response = await axios.get<IUserResponse>(
-            "htpps://api.github.com/user",
+            "https://api.github.com/user",
             {
                 headers:{
                     authorization:`Bearer ${accessTokenResponse.access_token}`
@@ -38,7 +38,7 @@ class AuthenticateUserService{
             }
         )
 
-        const  { login, id, avatar_url,  name } = response.data
+        const  { login, id, avatar_url, name } = response.data
 
         let user = await prismaClient.user.findFirst({
             where: {
@@ -53,7 +53,7 @@ class AuthenticateUserService{
                     github_id: id,
                     login,
                     avatar_url,
-                    name: "nome teste"
+                    name
                 }
             })
         }
