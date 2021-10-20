@@ -4,7 +4,7 @@ datasource db {
 }
 
 generator cliente {
-    provider = "prisma-cliente-js"
+    provider = "prisma-client-js"
 }
 
 model User {

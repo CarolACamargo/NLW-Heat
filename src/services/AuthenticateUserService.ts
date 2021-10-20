@@ -14,7 +14,6 @@ interface IUserResponse{
 
 }
 
-
 class AuthenticateUserService{
     async execute(code: string){
         const url = "https://github.com/login/oauth/access_token";
@@ -26,10 +25,10 @@ class AuthenticateUserService{
                 code,
             },
             headers:{
-                "Accept": "application/json"
+                Accept: "application/json"
             }
-        })
-
+        });
+        
         const response = await axios.get<IUserResponse>(
             "htpps://api.github.com/user",
             {
@@ -47,13 +46,14 @@ class AuthenticateUserService{
             }
         })
             
+        
         if(!user){
             user = await prismaClient.user.create({
                 data:{
                     github_id: id,
                     login,
                     avatar_url,
-                    name
+                    name: "nome teste"
                 }
             })
         }
@@ -77,6 +77,5 @@ class AuthenticateUserService{
         return {token, user };
     }
 }
-
 
 export {AuthenticateUserService}
